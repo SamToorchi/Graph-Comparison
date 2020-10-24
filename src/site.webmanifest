@@ -1,0 +1,12 @@
+{
+  "short_name": "KP AUI/VIT",
+  "name": "KP Graph Comparison",
+  "icons": [{
+    "src": "icon.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  }],
+  "start_url": "/?utm_source=homescreen",
+  "background_color": "#29e581",
+  "theme_color": "#29e581"
+}

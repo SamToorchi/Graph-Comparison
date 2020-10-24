@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>KP Graph Comparison</title>
+    <meta name="description"
+        content="Prototype implementation of a concept for comparing graphs using multiple tablet devices." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="apple-touch-icon" href="icon.png" />
+
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link type="text/css" href="css/adjacencyMatrix.css" rel="stylesheet" />
+
+    <meta name="theme-color" content="#29e581" />
+</head>
+
+
+
+
+<body>
+    <!--[if IE]>
+<p class="browserupgrade">
+    You are using an <strong>outdated</strong> browser. Please
+    <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+    your experience and security.
+</p>
+<![endif]-->
+    <main>
+        <section id="overviewContainer" class="fs">
+            <div id="graphContainer" class="fs view"></div>
+            <div id="matrixContainer" class="fs view">
+                <article>
+                    <p>
+                    <form id="order">
+                        <fieldset id="hover_z_index">
+                            <div class="single_row_form">
+                                <legend></legend>
+                                <input type="radio" id="name" name="select_filter" value="name" checked><label
+                                    for="name">By Name</label>
+                                <input type="radio" id="count" name="select_filter" value="count"><label for="count">By
+                                    Number of Followers</label>
+                                <input type="radio" id="group" name="select_filter" value="group"><label for="group">By
+                                    Number of Friends</label>
+                            </div>
+                        </fieldset>
+                    </form>
+
+
+                    </p>
+
+                    <section id="header2"></section>
+                </article>
+
+                <script type="text/javascript" src="js/diagrams/adjacencyMatrix.js"></script>
+            </div>
+
+            <div id="filterModal" class="card modal">
+                <form class="filter-form">
+                    <fieldset id="fieldsetQualitative" class="card">
+                        <h2>Qualitative</h2>
+                        <div class="radio-header">
+                            <div class="radio-header-labels">
+                                <span>✓</span>
+                                <span>~</span>
+                                <span>✗</span>
+                            </div>
+                        </div>
+                        <div class="radio-group">
+                            <label for="isOriginal">
+                                Original
+                            </label>
+                            <div class="radio-buttons">
+                                <input id="originalYes" name="isOriginal" value="originalYes" type="radio" />
+                                <input id="originalMaybe" name="isOriginal" value="originalMaybe" type="radio"
+                                    checked />
+                                <input id="originalNo" name="isOriginal" value="originalNo" type="radio" />
+                            </div>
+                        </div>
+                        <div class="radio-group">
+                            <label for="isInfluential">
+                                Influential
+                            </label>
+                            <div class="radio-buttons">
+                                <input id="influentialYes" name="isInfluential" value="influentialYes" type="radio" />
+                                <input id="influentialMaybe" name="isInfluential" value="influentialMaybe" type="radio"
+                                    checked />
+                                <input id="influentialNo" name="isInfluential" value="influentialNo" type="radio" />
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="fieldsetConnective" class="card">
+                        <h2>Connective</h2>
+                        <div class="radio-group">
+                            <label for="showFollowers">Followers</label>
+                            <input id="showFollowers" type="radio" name="connectionType" value="followers" />
+                        </div>
+                        <div class="radio-group">
+                            <label for="showFriends">Friends</label>
+                            <input id="showFriends" type="radio" name="connectionType" value="friends" />
+                        </div>
+                    </fieldset>
+                    <fieldset id="fieldsetQuantitative" class="card">
+                        <h2>Quantitative</h2>
+                        <div id="quantitativePCPContainer" class="filter-pcp-container"></div>
+                    </fieldset>
+                    <fieldset id="fieldsetDifferential" class="card">
+                        <h2>Differential</h2>
+                        <div id="differentialPCPContainer" class="filter-pcp-container"></div>
+                    </fieldset>
+                </form>
+            </div>
+            <div id="yearIndicator" class="overlay card">2018</div>
+            <div id="yearModal" class="overlay card">
+                <select id="yearSelect">
+                    <option value="2018" selected>2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2018-19">2018 & 2019</option>
+                </select>
+            </div>
+        </section>
+
+        <section id="detailViewContainer" class="fs view">
+            <div id="user1Container" class="card user-container">
+                <div class="info-identity">
+                    <img id="infoUser1Picture" class="user1 info-user-picture" src="https://www.fillmurray.com/48/48"
+                        alt="Profile Picture" />
+                    <div id="infoUser1Name">Bill Murray</div>
+                </div>
+                <div class="info-data">
+                    <table>
+                        <tr>
+                            <td>Followers:</td>
+                            <td id="infoUser1Followers">423984</td>
+                        </tr>
+                        <tr>
+                            <td>Friends:</td>
+                            <td id="infoUser1Friends">15</td>
+                        </tr>
+                        <tr>
+                            <td>Likes:</td>
+                            <td id="infoUser1Likes">934</td>
+                        </tr>
+                        <tr>
+                            <td>Tweets:</td>
+                            <td id="infoUser1Tweets">3490</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="user2Container" class="card user-container">
+                <div class="info-identity">
+                    <img id="infoUser2Picture" class="user2 info-user-picture" src="https://www.fillmurray.com/48/48"
+                        alt="Profile Picture" />
+                    <div id="infoUser2Name">Bill Murray</div>
+                </div>
+                <div class="info-data">
+                    <table>
+                        <tr>
+                            <td>Followers:</td>
+                            <td id="infoUser2Followers">423984</td>
+                        </tr>
+                        <tr>
+                            <td>Friends:</td>
+                            <td id="infoUser2Friends">15</td>
+                        </tr>
+                        <tr>
+                            <td>Likes:</td>
+                            <td id="infoUser2Likes">934</td>
+                        </tr>
+                        <tr>
+                            <td>Tweets:</td>
+                            <td id="infoUser2Tweets">3490</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="dotMatrix1Container" class="card dot-matrix-container">
+                <span>Connections <span class="user1">●</span></span>
+                <div id="dotMatrix1ContainerD3"></div>
+            </div>
+            <div id="dotMatrix2Container" class="card dot-matrix-container">
+                <span>Connections <span class="user2">●</span></span>
+                <div id="dotMatrix2ContainerD3"></div>
+            </div>
+            <div id="radarChartContainer" class="card"></div>
+            <div id="violinPlotContainer" class="card">
+                <div id="violinPlotContainerD3"></div>
+                <select id="violinPlotSelect">
+                    <option value="followers_count">Followers</option>
+                    <option value="friends_count">Friends</option>
+                    <option value="statuses_count">Tweets</option>
+                    <option value="favourites_count">Likes</option>
+                </select>
+            </div>
+        </section>
+
+        <div id="helpModal" class="card modal">
+            <div id="helpNodeLink" class="card">
+                <h3>Node Link Diagram</h3>
+                <p>Tap one node to highlight this user's connections to other users. Tap another user to highlight shared connections. The connection type can be set in the filter menu.</p>                <table>
+                    <thead>
+                    <tr>
+                        <th>Color</th>
+                        <th>Meaning</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td>Selection User 1</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Selection User 2</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Matching Neighbours</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Link in year 2018</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Link in year 2019</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Link in both years</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="helpAdjacencyMatrix" class="card">
+                <h3>Adjacency Matrix</h3>
+                <p>Tap a row or column to select a single user. Tap a cell to select the connections source and target user. </p>             
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Connection in 2018</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Connection in 2019</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Connection in 2018 and 2019</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="helpDotMatrix" class="card">
+                <h3>Dot Matrix</h3>
+                <p>
+                    Tap a dot to reveal the corresponding user's name. Tap the background to hide it.
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Follower in 2019</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Follower in 2018</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Friend in 2019</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Friend in 2018</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Follower and friend in 2019</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Follower and friend in 2018</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>No relation in 2019</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>No relation in 2018</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="helpParallelCoordinates" class="card">
+                <h3>Parallel Coordinates Plot</h3>
+                <p>Brush over axes to filter nodes.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>User 1 in 2019</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>User 1 in 2018</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>User 2 in 2019</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>User 2 in 2018</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="helpViolinPlot" class="card">
+                <h3>Violin Plot</h3>
+                <p>
+                    Use the select menu to switch between displayed attributes.
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>User 1</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>User 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="helpRadarChart" class="card">
+                <h3>Radar Chart</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Color</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>User 1 in 2019</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>User 1 in 2018</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>User 2 in 2019</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>User 2 in 2018</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card toolbar">
+            <button id="toolbarButtonUser">
+                <img src="img/user.svg" alt="View" />
+            </button>
+            <button id="toolbarButtonMode">
+                <img id="iconMode" src="img/git-branch.svg" alt="Switch Mode" />
+            </button>
+            <button id="toolbarButtonFilter">
+                <img src="img/filter.svg" alt="Filter" />
+            </button>
+            <button id="toolbarButtonYear">
+                <img id="iconYear" class="year-2018" src="img/calendar.svg" alt="Year" />
+            </button>
+            <button id="toolbarButtonHelp">
+                <img src="img/help-circle.svg" alt="Help" />
+            </button>
+        </div>
+    </main>
+
+    <!-- Vendor -->
+    <script src="js/plugins.js"></script>
+    <script src="js/vendor/modernizr-3.8.0.min.js"></script>
+    <script src="js/vendor/d3.min.js"></script>
+    <script src="js/vendor/hammer.min.js"></script>
+    <script src="js/vendor/socket.io.min.js"></script>
+
+    <!-- Diagrams -->
+    <script src="js/diagrams/dotMatrix.js"></script>
+    <script src="js/diagrams/violinPlot.js"></script>
+    <script src="js/diagrams/radarChart.js"></script>
+    <script src="js/diagrams/nodeLink.js"></script>
+    <script src="js/diagrams/parallelCoordinates.js"></script>
+
+    <!-- Main -->
+    <script src="js/main.js"></script>
+
+    <!-- Sockets -->
+    <script src="js/sockets/socket_indexHtml.js" type="text/javascript">
+    </script>
+    <script src="js/sockets/socket_detailView.js" type="text/javascript">
+    </script>
+    <script src="js/sockets/socket_adjacency_matrix.js" type="text/javascript">
+    </script>
+    <script src="js/sockets/socket_node_link.js" type="text/javascript">
+    </script>
+
+</body>
+
+</html>

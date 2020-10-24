@@ -1,0 +1,18 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Sam Toorchi -- Prototype Developer
+    Jonas Leupold -- Prototype Developer
+    Vincent Thiele -- Prototype Developer
+
+# THANKS
+
+    Tom Horak
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5, JavaScript
+    Apache Server Configs, D3.js, jQuery, Modernizr, Normalize.css
+    socket.io
